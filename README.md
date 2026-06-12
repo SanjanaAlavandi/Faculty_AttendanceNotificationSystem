@@ -1,1 +1,1 @@
-# FANS
+# Faculty Attendance notification System
