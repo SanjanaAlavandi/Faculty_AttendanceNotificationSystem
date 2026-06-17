@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KLS GIT – Premium AI Attendance Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- LEFT -->
+<section class="left">
+  <div class="logo">
+    <div class="logo-icon">🎓</div>
+    <div>
+      <div>KLS GIT</div>
+      <div class="logo-sub">Premium AI Attendance Platform</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      AI-Powered Campus Intelligence
+    </div>
+
+    <h1>Reimagine attendance with<br><span>premium AI workflows</span></h1>
+    <p class="hero-desc">Face recognition, real-time analytics, smart alerts, and premium dashboards — all in one smooth, modern system built for institutions that move fast.</p>
+
+    <div class="features">
+      <div class="feat">
+        <div class="feat-icon">🎭</div>
+        <span class="feat-label">Face Recognition Attendance</span>
+        <span class="feat-check">✓</span>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📊</div>
+        <span class="feat-label">Real-time Analytics Dashboard</span>
+        <span class="feat-check">✓</span>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔔</div>
+        <span class="feat-label">Smart Notification Engine</span>
+        <span class="feat-check">✓</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><div class="stat-val">850+</div><div class="stat-lbl">Faculty</div></div>
+      <div><div class="stat-val">99.2%</div><div class="stat-lbl">Accuracy</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHT -->
+<aside class="right">
+  <div class="tabs">
+    <button class="tab active">Sign In</button>
+  </div>
+
+  <div class="secure-badge">⚡ Secure access</div>
+
+  <div class="welcome">Welcome back 👋</div>
+  <div class="welcome-sub">Sign in to continue!</div>
+
+  <div class="demo-section-label">Demo Accounts</div>
+  <div class="demo-accounts">
+    <div class="demo-acc">
+      <div class="dot dot-admin"></div>
+      <div>
+        <div class="demo-name">Admin</div>
+        
+      </div>
+      <span class="demo-arrow">›</span>
+    </div>
+    <div class="demo-acc" >
+      <div class="dot dot-faculty"></div>
+      <div>
+        <div class="demo-name">Faculty</div>
+      </div>
+      <span class="demo-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Email Address</label>
+    <input type="email" id="email" opacity="0" placeholder="you@gmail.com"  />
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <div class="field-row">
+      <input type="password" id="password" placeholder="••••••••" />
+      <button class="eye-btn" onclick="togglePwd()" id="eyeBtn">👁</button>
+    </div>
+  </div>
+
+  <div class="forgot">Forgot password?</div>
+
+  <div class="error-box" id="errorBox">
+    ⚠ Invalid email or password.
+  </div>
+
+  <button class="btn-signin" onclick="handleSignIn()">
+    Sign In &nbsp;›
+  </button>
+  
+</aside>
+
+<script src="js/script.js"></script>
+</body>
+</html>
