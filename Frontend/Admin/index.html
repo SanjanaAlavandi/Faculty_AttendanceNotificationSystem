@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin@KLS GIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo-group">
+      <div class="logo-icon">🎓</div>
+      <div>
+        <div class="logo-text">KLS GIT</div>
+        <div class="logo-sub">Premium AI Attendance Platform</div>
+      </div>
+      <div class="ai-badge">AI-Powered Campus Intelligence</div>
+    </div>
+   <!-- REPORT BUTTONS -->
+<div style="display:flex; gap:12px; margin-top:20px;">
+
+  <button class="btn-report btn-daily" onclick="getDailyReport()">
+    📊 Daily Report
+  </button>
+
+  <button class="btn-report btn-weekly" onclick="getWeeklyReport()">
+    📅 Weekly Report
+  </button>
+
+  <button class="btn-report btn-monthly" onclick="getMonthlyReport()">
+    📆 Monthly Report
+  </button>
+
+</div>
+    <div class="topbar-right">
+      <div class="secure-badge">Secure access</div>
+      <div class="avatar">A</div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Main</div>
+      <div class="sidebar-item active" onclick="showSection('add')"><span class="sidebar-icon">🏠</span> Give Attendance</div>
+
+      <div class="sidebar-label">Management</div>
+      <div class="sidebar-item active" onclick="showSection('add')"><span class="sidebar-icon">🏠</span> Add Faculty</div>
+      <div class="sidebar-item" onclick="showSection('faculty')"><span class="sidebar-icon">👥</span> Faculty List</div>
+      <div class="sidebar-item" onclick="showSection('attendance')"><span class="sidebar-icon">📋</span> Attendance Log</div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+<div class="action-bar">
+  <div class="action-info">
+    <div class="action-title">Start Attendance Session</div>
+    <div class="action-desc">
+      Launch face recognition system to mark attendance in real-time.
+    </div>
+    <button class="btn-start" onclick="startAttendance()">
+    ▶ Start Attendance
+  </button>
+</div>
+  </div>
+  
+  <!-- ADD FACULTY -->
+  <div id="addSection">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Add New Faculty</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password">
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="role">
+              <option value="faculty">Faculty</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:18px;">
+          <button class="btn btn-primary" onclick="addUser()">＋ Add User</button>
+          <button class="btn btn-secondary" onclick="captureImages()">📷 Capture Images</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACULTY LIST -->
+  <div id="facultySection" style="display:none;">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Faculty List</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+          </thead>
+          <tbody id="facultyTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATTENDANCE -->
+  <div id="attendanceSection" style="display:none;">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Attendance Log</div>
+        <input type="date" id="datePicker" onchange="loadAttendanceByDate()">
+      </div>
+      <div class="card-body">
+        <div id="attendanceBoxes" style="display:flex; flex-wrap:wrap; gap:12px;"></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- LOADING SPINNER -->
+<div id="loader" style="
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.7);
+  z-index:9999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  font-family:sans-serif;
+">
+
+  <div class="spinner"></div>
+  <div style="margin-top:15px;">Sending report...</div>
+
+</div>
+<div id="toast" style="
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #13161e;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #2a3047;
+  display: none;
+  z-index: 9999;
+  font-size: 13px;
+">
+</div>
+
+</main>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
