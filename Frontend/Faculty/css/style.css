@@ -1,0 +1,31 @@
+body {
+    background: black;
+    color: white;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.card {
+    background: #13161e;
+    padding: 25px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+p {
+    color: gray;
+}
+
+button {
+    margin-top: 10px;
+    padding: 12px 25px;
+    background: #00e5c3;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
