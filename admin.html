@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin@KLS GIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0d0f14;
+      --bg-card: #13161e;
+      --bg-hover: #1a1e28;
+      --border: #1f2433;
+      --border-bright: #2a3047;
+      --accent-blue: #4f8ef7;
+      --accent-cyan: #00d4ff;
+      --accent-teal: #00e5c3;
+      --accent-red: #ff4d4d;
+      --text-primary: #f0f2f8;
+      --text-secondary: #8892aa;
+      --text-muted: #4a5270;
+      --tag-bg: rgba(79,142,247,0.12);
+      --tag-border: rgba(79,142,247,0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-base);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .ai-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+
+    .ai-badge::before {
+      content: '⚡';
+      font-size: 11px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,229,195,0.08);
+      border: 1px solid rgba(0,229,195,0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--accent-teal);
+    }
+
+    .secure-badge::before { content: '⚡'; font-size: 11px; }
+
+    .avatar {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #4f8ef7, #00d4ff);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bg-base);
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 61px);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 10px;
+      margin: 16px 0 8px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+      font-size: 13.5px;
+      font-weight: 400;
+    }
+
+    .sidebar-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .sidebar-item.active {
+      background: var(--tag-bg);
+      color: var(--accent-blue);
+      border: 1px solid var(--tag-border);
+    }
+
+    .sidebar-icon { font-size: 15px; width: 20px; text-align: center; }
+
+    /* ── MAIN ── */
+    .main {
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .page-sub { color: var(--text-secondary); font-size: 13px; margin-top: 3px; }
+
+    /* ── SECTION CARD ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .card-body { padding: 24px; }
+
+    /* ── FORM ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: span 2; }
+
+    label {
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      background: var(--bg-base);
+      border: 1px solid var(--border-bright);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      outline: none;
+      transition: border 0.2s;
+      width: 100%;
+    }
+
+    input:focus, select:focus { border-color: var(--accent-blue); }
+    input::placeholder { color: var(--text-muted); }
+
+    select option { background: var(--bg-card); }
+
+    .btn-row { display: flex; gap: 10px; margin-top: 6px; }
+
+    .btn {
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), #3a7de8);
+      color: #fff;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(79,142,247,0.35); }
+
+    .btn-secondary {
+      background: var(--bg-hover);
+      border: 1px solid var(--border-bright);
+      color: var(--text-secondary);
+    }
+
+    .btn-secondary:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+    .btn-danger {
+      background: rgba(255,77,77,0.1);
+      border: 1px solid rgba(255,77,77,0.25);
+      color: var(--accent-red);
+    }
+
+    .btn-danger:hover { background: rgba(255,77,77,0.18); }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; }
+
+    thead tr { border-bottom: 1px solid var(--border); }
+
+    th {
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    td {
+      padding: 13px 16px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    tbody tr:hover td { background: var(--bg-hover); color: var(--text-primary); }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+
+    .role-admin { background: rgba(79,142,247,0.12); color: var(--accent-blue); border: 1px solid rgba(79,142,247,0.25); }
+    .role-faculty { background: rgba(0,212,255,0.1); color: var(--accent-cyan); border: 1px solid rgba(0,212,255,0.22); }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+
+    .status-present { background: rgba(0,229,195,0.1); color: var(--accent-teal); border: 1px solid rgba(0,229,195,0.22); }
+    .status-absent { background: rgba(255,77,77,0.1); color: var(--accent-red); border: 1px solid rgba(255,77,77,0.2); }
+
+    .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+    .dot-present { background: var(--accent-teal); box-shadow: 0 0 6px var(--accent-teal); }
+    .dot-absent { background: var(--accent-red); }
+    .dot-admin { background: var(--accent-blue); }
+    .dot-faculty { background: var(--accent-cyan); }
+
+    /* ── ATTENDANCE ACTION ── */
+    .action-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .action-info { display: flex; flex-direction: column; gap: 3px; }
+    .action-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
+    .action-desc { font-size: 12.5px; color: var(--text-muted); }
+
+    .btn-start {
+      background: linear-gradient(135deg, #00e5c3, #00d4ff);
+      color: var(--bg-base);
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      padding: 11px 26px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: all 0.18s;
+    }
+
+    .btn-start:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,229,195,0.35); }
+
+    .btn-report {
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+}
+
+/* Daily - Blue */
+.btn-daily {
+  background: #1a1e28;
+  border: 1px solid #2a3047;
+  color: #8892aa;
+}
+.btn-daily:hover {
+  box-shadow: 0 6px 20px rgba(79,142,247,0.4);
+}
+
+/* Weekly - Dark */
+.btn-weekly {
+  background: #1a1e28;
+  border: 1px solid #2a3047;
+  color: #8892aa;
+}
+.btn-weekly:hover {
+  box-shadow: 0 6px 20px rgba(79,142,247,0.4);
+}
+
+/* Monthly - Red */
+.btn-monthly {
+    background: #1a1e28;
+  border: 1px solid #2a3047;
+  color: #8892aa;
+}
+.btn-monthly:hover {
+  box-shadow: 0 6px 20px rgba(79,142,247,0.4);
+}
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #2a3047;
+  border-top: 5px solid #00e5c3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+    .empty-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.4; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo-group">
+      <div class="logo-icon">🎓</div>
+      <div>
+        <div class="logo-text">KLS GIT</div>
+        <div class="logo-sub">Premium AI Attendance Platform</div>
+      </div>
+      <div class="ai-badge">AI-Powered Campus Intelligence</div>
+    </div>
+   <!-- REPORT BUTTONS -->
+<div style="display:flex; gap:12px; margin-top:20px;">
+
+  <button class="btn-report btn-daily" onclick="getDailyReport()">
+    📊 Daily Report
+  </button>
+
+  <button class="btn-report btn-weekly" onclick="getWeeklyReport()">
+    📅 Weekly Report
+  </button>
+
+  <button class="btn-report btn-monthly" onclick="getMonthlyReport()">
+    📆 Monthly Report
+  </button>
+
+</div>
+    <div class="topbar-right">
+      <div class="secure-badge">Secure access</div>
+      <div class="avatar">A</div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Main</div>
+      <div class="sidebar-item active" onclick="showSection('add')"><span class="sidebar-icon">🏠</span> Give Attendance</div>
+
+      <div class="sidebar-label">Management</div>
+      <div class="sidebar-item active" onclick="showSection('add')"><span class="sidebar-icon">🏠</span> Add Faculty</div>
+      <div class="sidebar-item" onclick="showSection('faculty')"><span class="sidebar-icon">👥</span> Faculty List</div>
+      <div class="sidebar-item" onclick="showSection('attendance')"><span class="sidebar-icon">📋</span> Attendance Log</div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+<div class="action-bar">
+  <div class="action-info">
+    <div class="action-title">Start Attendance Session</div>
+    <div class="action-desc">
+      Launch face recognition system to mark attendance in real-time.
+    </div>
+    <button class="btn-start" onclick="startAttendance()">
+    ▶ Start Attendance
+  </button>
+</div>
+  </div>
+  
+  <!-- ADD FACULTY -->
+  <div id="addSection">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Add New Faculty</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password">
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="role">
+              <option value="faculty">Faculty</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:18px;">
+          <button class="btn btn-primary" onclick="addUser()">＋ Add User</button>
+          <button class="btn btn-secondary" onclick="captureImages()">📷 Capture Images</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACULTY LIST -->
+  <div id="facultySection" style="display:none;">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Faculty List</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+          </thead>
+          <tbody id="facultyTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATTENDANCE -->
+  <div id="attendanceSection" style="display:none;">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Attendance Log</div>
+        <input type="date" id="datePicker" onchange="loadAttendanceByDate()">
+      </div>
+      <div class="card-body">
+        <div id="attendanceBoxes" style="display:flex; flex-wrap:wrap; gap:12px;"></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- LOADING SPINNER -->
+<div id="loader" style="
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.7);
+  z-index:9999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  font-family:sans-serif;
+">
+
+  <div class="spinner"></div>
+  <div style="margin-top:15px;">Sending report...</div>
+
+</div>
+<div id="toast" style="
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #13161e;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #2a3047;
+  display: none;
+  z-index: 9999;
+  font-size: 13px;
+">
+</div>
+
+</main>
+  </div>
+
+  <script>
+    function addUser() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+      fetch('/add-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, role })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("User added!");
+        loadFaculty();
+      });
+    }
+
+    function captureImages() {
+      const name = document.getElementById("name").value;
+      fetch('/capture-images', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Capturing images...");
+      });
+    }
+
+    function startAttendance() {
+      fetch('/start-attendance', {
+        method: 'POST'
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Attendance started!");
+      });
+    }
+   
+
+  
+    function showSection(section) {
+  document.getElementById("addSection").style.display = "none";
+  document.getElementById("facultySection").style.display = "none";
+  document.getElementById("attendanceSection").style.display = "none";
+
+  if (section === "add") {
+    document.getElementById("addSection").style.display = "block";
+  }
+  if (section === "faculty") {
+    document.getElementById("facultySection").style.display = "block";
+    loadFaculty();
+  }
+  if (section === "attendance") {
+    document.getElementById("attendanceSection").style.display = "block";
+    loadAttendanceByDate();
+  }
+}
+    function loadFaculty() {
+      fetch('/get-faculty')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById("facultyTable");
+        tbody.innerHTML = "";
+        if (!data.length) {
+          tbody.innerHTML = '<tr><td colspan="3"><div class="empty"><div class="empty-icon">👤</div>No faculty added yet.</div></td></tr>';
+          return;
+        }
+        data.forEach(row => {
+          const roleClass = row.role === 'admin' ? 'role-admin' : 'role-faculty';
+          const dotClass  = row.role === 'admin' ? 'dot-admin'  : 'dot-faculty';
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.name}</td>
+            <td>${row.email}</td>
+            <td><span class="role-badge ${roleClass}"><span class="dot ${dotClass}"></span>${row.role}</span></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.style.display = "block";
+
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
+    function loadAttendanceByDate() {
+  const date = document.getElementById("datePicker").value;
+
+  fetch(`/attendance-by-date?date=${date}`)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("attendanceBoxes");
+      container.innerHTML = "";
+
+      data.forEach(row => {
+        const box = document.createElement("div");
+
+        const isPresent = row.status === "Present";
+
+        box.style.width = "150px";
+        box.style.padding = "15px";
+        box.style.borderRadius = "10px";
+        box.style.textAlign = "center";
+        box.style.fontWeight = "600";
+
+        box.style.background = isPresent ? "#00e5c320" : "#ff4d4d20";
+        box.style.border = isPresent ? "1px solid #00e5c3" : "1px solid #ff4d4d";
+        box.style.color = isPresent ? "#00e5c3" : "#ff4d4d";
+
+        box.innerHTML = `
+          ${row.name}<br>
+          ${row.status}
+        `;
+
+        container.appendChild(box);
+      });
+    });
+}
+
+    loadFaculty();
+    loadAttendanceByDate();
+function showLoader(message="Sending report...") {
+  const loader = document.getElementById("loader");
+  loader.style.display = "flex";
+  loader.querySelector("div:last-child").innerText = message;
+}
+
+function hideLoader() {
+  document.getElementById("loader").style.display = "none";
+}
+
+function getDailyReport() {
+  showLoader("Sending Daily Report...");
+  
+  fetch('/daily-report', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      hideLoader();
+      showToast("✅ Daily Report Sent!");
+    })
+    .catch(err => {
+      hideLoader();
+      showToast("❌ Failed to send report");
+    });
+}
+
+function getWeeklyReport() {
+  showLoader("Sending Weekly Report...");
+
+  fetch('/weekly-report', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      hideLoader();
+      showToast("✅ Weekly Report Sent!");
+    })
+    .catch(err => {
+      hideLoader();
+      showToast("❌ Failed to send report");
+    });
+}
+
+function getMonthlyReport() {
+  showLoader("Sending Monthly Report...");
+
+  fetch('/monthly-report', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      hideLoader();
+      showToast("✅ Monthly Report Sent!");
+    })
+    .catch(err => {
+      hideLoader();
+      showToast("❌ Failed to send report");
+    });
+}
+  </script>
+</body>
+</html>

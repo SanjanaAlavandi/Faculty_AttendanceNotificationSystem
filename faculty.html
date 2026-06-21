@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Faculty@KLS GIT</title>
+</head>
+
+<body style="background:black; color:white; text-align:center; font-family:sans-serif;">
+
+  <h1>Welcome Faculty 👨‍🏫</h1>
+  <div style="margin-top:40px;">
+  <div style="background:#13161e; padding:25px; border-radius:12px; display:inline-block;">
+    <h2>Start Attendance Session</h2>
+    <p style="color:gray;">Click to mark your attendance using face recognition</p>
+
+    <button onclick="startAttendance()" 
+            style="margin-top:10px; padding:12px 25px; background:#00e5c3; border:none; border-radius:8px; font-weight:bold;">
+      ▶ Start Attendance
+    </button>
+  </div>
+</div>
+
+  <script>
+    function startAttendance() {
+      fetch('/start-attendance', {
+        method: 'POST'
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message || "Attendance started!");
+      })
+      .catch(err => {
+        alert("Error starting attendance");
+      });
+    }
+  </script>
+
+</body>
+</html>
