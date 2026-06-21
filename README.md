@@ -138,10 +138,6 @@ python auto_scheduler.py
 
 ---
 
-## 👥 Team
-
-**Team No. 34**
-
 ---
 
 ## 📄 License
